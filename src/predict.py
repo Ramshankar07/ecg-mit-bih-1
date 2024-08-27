@@ -9,7 +9,7 @@ import os
 
 def cincData(config):
     if config.cinc_download:
-      cmd = "curl -O https://archive.physionet.org/challenge/2017/training2017.zip"
+      cmd = "curl -O https://physionet.org/challenge/2017/training2017.zip"
       os.system(cmd)
       os.system("unzip training2017.zip")
     num = config.num
@@ -82,7 +82,7 @@ def predictByPart(data, peaks):
     return predicted, result
 
 def main(config):
-  classesM= ['N','Ventricular','Paced','A','F', 'Noise']#,'L','R','f','j','E','a','J','Q','e','S']
+  classesM= ['N','Ventricular','Paced','A','F', 'Noise','L','R','f','j','E','a','J','Q','e','S']
 
   if config.upload:
     data = uploadedData(file)
