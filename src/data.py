@@ -63,7 +63,8 @@ def preprocess( split ):
             signals1 = preprocessing.scale(np.nan_to_num(record.p_signal[:,1])).tolist()
             from scipy.signal import find_peaks
             peaks, _ = find_peaks(signals0, distance=150)
-
+            if len(peaks) > 1:
+                peaks = peaks[peaks >= input_size // 2]
             feature0, feature1 = record.sig_name[0], record.sig_name[1]
 
             global lppened0, lappend1, dappend0, dappend1 
@@ -73,7 +74,11 @@ def preprocess( split ):
             dappend1 = datadict[feature1].append
             # skip a first peak to have enough range of the sample 
             for peak in tqdm(peaks[1:-1]):
+              if peak < input_size // 2:
+                continue
               start, end =  peak-input_size//2 , peak+input_size//2
+              start = max(0, start)  # Ensure start is non-negative
+              end = min(end, len(signals0))
               ann = rdann('dataset/'+ num, extension='atr', sampfrom = start, sampto = end, return_label_elements=['symbol'])
               
               def to_dict(chosenSym):
