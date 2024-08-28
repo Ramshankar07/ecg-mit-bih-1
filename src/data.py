@@ -54,7 +54,7 @@ def preprocess( split ):
             datalabel[feature] = list()
 
         def dataprocess():
-          input_size = config.input_size 
+          input_size = 3600 
           for num in tqdm(dataSet):
             from wfdb import rdrecord, rdann
             record = rdrecord('dataset/'+ num, smooth_frames= True)
