@@ -8,11 +8,6 @@ from utils import *
 import os 
 
 def cincData(config):
-    if config.cinc_download:
-      cmd = "Invoke-WebRequest -Uri "https://physionet.org/challenge/2017/training2017.zip" -OutFile "training2017.zip"
-"
-      os.system(cmd)
-      os.system("unzip training2017.zip")
     num = config.num
     import csv
     testlabel = []
@@ -55,7 +50,7 @@ def predict(data, label, peaks, config):
       return predicted, classesM[avgPredict.argmax()], 100*max(avgPredict[0])
 
 def predictByPart(data, peaks):
-    classesM = ['N','Ventricular','Paced','A','F','Noise']#,'L','R','f','j','E','a','J','Q','e','S']
+    classesM = ['N','Ventricular','Paced','A','F','Noise','L','R','f','j','E','a','J','Q','e','S']
     predicted = list()
     result = ""
     counter = [0]* len(classesM)
